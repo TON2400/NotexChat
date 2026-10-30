@@ -15,6 +15,8 @@ export type Database = {
       get_current_profile: { Args: Record<string, never>; Returns: Profile };
       get_or_create_direct_conversation: { Args: { p_other_user: string }; Returns: string };
       consume_invite_key: { Args: { p_key: string; p_user_id: string }; Returns: InviteKey };
+      check_registration_eligibility: { Args: { p_username: string; p_key: string }; Returns: undefined };
+      complete_user_registration: { Args: { p_user_id: string; p_username: string; p_display_name: string; p_key: string }; Returns: Profile };
       delete_expired_messages: { Args: Record<string, never>; Returns: number };
     };
     Enums: Record<string, never>;
@@ -22,7 +24,7 @@ export type Database = {
   };
 };
 
-export type Profile = { id: string; username: string; display_name: string; role: "user" | "admin"; created_at: string; updated_at: string };
+export type Profile = { id: string; username: string; display_name: string; role: "user" | "admin"; created_at: string; updated_at: string; disabled_at?: string | null };
 export type InviteKey = { id: string; key: string; created_by: string | null; role: "user" | "admin"; max_uses: number; used_count: number; expires_at: string | null; created_at: string; disabled_at: string | null };
 export type Conversation = { id: string; type: "direct" | "global"; direct_key: string | null; created_at: string };
 export type ConversationMember = { conversation_id: string; user_id: string; joined_at: string };

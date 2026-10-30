@@ -25,7 +25,7 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`. The first registration must use `AdminSigma101`; that key is seeded by migration, can be used once, and is never shipped to client JavaScript.
+Open `http://localhost:3000`. To create the first administrator account, generate a one-time random admin invite key in the Supabase SQL Editor (`insert into public.invite_keys(key, role, max_uses, expires_at) values (encode(gen_random_bytes(16), 'hex'), 'admin', 1, now() + interval '1 hour') returning key;`) and use that key once at `/register`.
 
 ## Deploy to Vercel Hobby
 
